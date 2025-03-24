@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++11
+CXXFLAGS = -Wall -Wextra -std=c++17 -O2
 
-TARGET = matrix_program
+TARGET = matrix
 SOURCES = main.cpp matrix.cpp
 HEADERS = matrix.h
 OBJECTS = $(SOURCES:.cpp=.o)

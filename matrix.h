@@ -1,4 +1,8 @@
 #include <iostream>
+#include <cstdlib>
+#include <string>
+#include <sstream>
+#include <limits>
 #include <vector>
 
 class Matrix{
@@ -6,11 +10,15 @@ class Matrix{
     int mDim;
     std::vector<std::vector<int>> myMatrix;
 public:
-    Matrix() : nDim(0), mDim(0), myMatrix(0, std::vector<int>(0)) {}
-    Matrix(int n, int m) : nDim(n), mDim(m), myMatrix(n, std::vector<int>(m)) {}
+    Matrix();
+    Matrix(int n, int m);
     void matrixResize(int nRow, int mCol);
+    void getDim();
     void initMatrix();
     void printMatrix();
+    
+    Matrix operator*(const Matrix& otherMatrix) const;
+    Matrix operator+(const Matrix& otherMatrix) const;
 };
 
 

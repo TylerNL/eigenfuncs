@@ -3,18 +3,17 @@
 #include "matrix.h"
 
 int main(){
-    int nDim = 0;
-    int mDim = 0;
-    //Gets nxm matrix of choice.
-    std::cout << "Welcome. Enter the n dimension of your matrix: ";
-    std::cin >> nDim;
-    std::cout << "Now enter the m dimension: ";
-    std::cin >> mDim;
     //Initializes matrix + resizes;
-    Matrix myMatrix(nDim, mDim);
-    myMatrix.initMatrix();
+    Matrix matrix1;
+    matrix1.getDim();
+    matrix1.initMatrix();
 
-    myMatrix.printMatrix();
+    Matrix matrix2;
+    matrix2.getDim();
+    matrix2.initMatrix();
+
+    Matrix matrix3 = matrix1 * matrix2;
+    matrix3.printMatrix();
 
     return 0;
 }

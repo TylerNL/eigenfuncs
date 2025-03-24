@@ -1,6 +1,97 @@
 #include "matrix.h"
 
+Matrix::Matrix(){
+    nDim = 1;
+    mDim = 1;
+    myMatrix.resize(nDim);
 
+    for(auto& row: myMatrix){
+        row.resize(mDim);
+    }
+}
+
+Matrix::Matrix(int row, int col){
+    mDim = row;
+    nDim = col;
+
+    myMatrix.resize(nDim);
+
+    for(auto& row: myMatrix){
+        row.resize(mDim);
+    }
+}
+
+Matrix Matrix::operator*(const Matrix& otherMatrix) const{ //3x2 2x3)
+    if(mDim != otherMatrix.nDim) exit(EXIT_FAILURE);
+    Matrix newMatrix(otherMatrix.mDim, nDim);
+    for(int row = 0; row < nDim; row++){
+        for(int col = 0; col < otherMatrix.mDim; col++){
+            newMatrix.myMatrix[row][col] = 0;
+            for(int i = 0; i < mDim; i++){
+                newMatrix.myMatrix[row][col] += myMatrix[row][i] * otherMatrix.myMatrix[i][col];
+            }
+        }
+    }
+    return newMatrix;
+}
+
+
+Matrix Matrix::operator+(const Matrix& otherMatrix) const {
+    if(nDim != otherMatrix.nDim || mDim != otherMatrix.mDim) exit(EXIT_FAILURE); //If dimensions aren't the same exit.
+    Matrix output(nDim, mDim);
+    for(int row = 0; row < nDim; row++){
+        for(int col = 0; col < mDim; col++){
+            output.myMatrix[row][col] = myMatrix[row][col] + otherMatrix.myMatrix[row][col];
+        }
+    }
+    return output;
+}
+
+/*
+2x3 3x4
+A = [3 4 2]    B = [13 9  7  15]
+    [1 5 7]        [8  7  4  6]
+                   [6  4  0  3]
+
+*/
+
+void Matrix::getDim(){
+    std::string input;
+    std::cout << "Enter the dimensions of your matrix (nxm): ";
+    std::cin >> input;
+    size_t xPos = input.find('x');
+    // Check if 'x' was found
+    if (xPos != std::string::npos) {
+        // Extract the parts before and after 'x'
+        std::string nStr = input.substr(0, xPos);
+        std::string mStr = input.substr(xPos + 1);
+        
+        // Convert strings to integers
+        try {
+            nDim = std::stoi(nStr);
+            mDim = std::stoi(mStr);
+
+            // Resize the matrix with the new dimensions
+            matrixResize(nDim, mDim);
+        } catch (const std::exception& e) {
+            std::cerr << "Error parsing dimensions. Using default 3x3." << std::endl;
+            nDim = 3;
+            mDim = 3;
+            matrixResize(nDim, mDim);
+        }
+    } else {
+        std::cerr << "Invalid format. Please use format 'nxm'. Using default 3x3." << std::endl;
+        nDim = 3;
+        mDim = 3;
+        matrixResize(nDim, mDim);
+    }
+
+    myMatrix.resize(nDim);
+
+    for(auto& row: myMatrix){
+        row.resize(mDim);
+    }
+}
 
 void Matrix::matrixResize(int nRow, int mCol){
     myMatrix.resize(nRow);
@@ -22,10 +113,12 @@ void Matrix::initMatrix(){
 }
 
 void Matrix::printMatrix(){
+    std::cout << "\nYour matrix: \n";
     for(int row = 0; row < nDim; row++){
         for(int col = 0; col < mDim; col++){
             std::cout << myMatrix[row][col] << ' ';
         }
         std::cout << '\n';
     }
+    std::cout << '\n';
 }
