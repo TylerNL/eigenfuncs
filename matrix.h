@@ -18,6 +18,7 @@ public:
     void printMatrix();
     
     Matrix operator*(const Matrix& otherMatrix) const;
+    Matrix operator-(const Matrix& otherMatrix) const;
     Matrix operator+(const Matrix& otherMatrix) const;
 };
 

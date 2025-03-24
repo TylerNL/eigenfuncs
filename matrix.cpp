@@ -47,13 +47,17 @@ Matrix Matrix::operator+(const Matrix& otherMatrix) const {
     return output;
 }
 
-/*
-2x3 3x4
-A = [3 4 2]    B = [13 9  7  15]
-    [1 5 7]        [8  7  4  6]
-                   [6  4  0  3]
+Matrix Matrix::operator-(const Matrix& otherMatrix) const {
+    if(nDim != otherMatrix.nDim || mDim != otherMatrix.mDim) exit(EXIT_FAILURE); //If dimensions aren't the same exit.
+    Matrix output(nDim, mDim);
+    for(int row = 0; row < nDim; row++){
+        for(int col = 0; col < mDim; col++){
+            output.myMatrix[row][col] = myMatrix[row][col] - otherMatrix.myMatrix[row][col];
+        }
+    }
+    return output;
+}
 
-*/
 
 void Matrix::getDim(){
     std::string input;
