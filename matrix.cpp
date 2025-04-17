@@ -74,7 +74,6 @@ void Matrix::getDim(){
         try {
             nDim = std::stoi(nStr);
             mDim = std::stoi(mStr);
-
             // Resize the matrix with the new dimensions
             matrixResize(nDim, mDim);
         } catch (const std::exception& e) {
@@ -82,10 +81,8 @@ void Matrix::getDim(){
             getDim();
         }
     } else {
-        std::cerr << "Invalid format. Please use format 'nxm'. Using default 3x3." << std::endl;
-        nDim = 3;
-        mDim = 3;
-        matrixResize(nDim, mDim);
+        std::cerr << "Invalid format. Please use format 'nxm'.\n";
+        getDim();
     }
 
     myMatrix.resize(nDim);
@@ -114,13 +111,25 @@ void Matrix::initMatrix(){
     }
 }
 
-void Matrix::printMatrix(){
-    std::cout << "\nYour matrix: \n";
-    for(int row = 0; row < nDim; row++){
-        for(int col = 0; col < mDim; col++){
-            std::cout << myMatrix[row][col] << ' ';
-        }
-        std::cout << '\n';
+void printTemplate(int nDim ){
+    std::cout << ' ';
+    for(int i = 0; i < nDim; i++){
+        std::cout << "--";
     }
     std::cout << '\n';
+}
+
+void Matrix::printMatrix(){
+    std::cout << "\nYour matrix: \n";
+    printTemplate(nDim);
+
+    for(int row = 0; row < nDim; row++){
+        std::cout << "|";
+        for(int col = 0; col < mDim; col++){
+            std::cout << myMatrix[row][col];
+            if(col != mDim - 1) std::cout << "|";
+        }
+        std::cout << "|\n";
+    }
+    printTemplate(nDim);
 }
