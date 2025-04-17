@@ -16,6 +16,7 @@ public:
     void getDim();
     void initMatrix();
     void printMatrix();
+    void findDeterminant();
     
     Matrix operator*(const Matrix& otherMatrix) const;
     Matrix operator-(const Matrix& otherMatrix) const;

@@ -78,10 +78,8 @@ void Matrix::getDim(){
             // Resize the matrix with the new dimensions
             matrixResize(nDim, mDim);
         } catch (const std::exception& e) {
-            std::cerr << "Error parsing dimensions. Using default 3x3." << std::endl;
-            nDim = 3;
-            mDim = 3;
-            matrixResize(nDim, mDim);
+            std::cerr << "Error parsing dimensions. Please try again.\n";
+            getDim();
         }
     } else {
         std::cerr << "Invalid format. Please use format 'nxm'. Using default 3x3." << std::endl;
